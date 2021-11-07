@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <includeAll path="changes" relativeToChangelogFile="true"/>
+
+    <changeSet id="10" author="kozlova" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <tableIsEmpty tableName="order"/>
+        </preConditions>
+
+        <insert tableName="order">
+            <column name="window_id">1</column>
+            <column name="customer_id">1</column>
+            <column name="date">2021-11-04</column>
+            <column name="cost">10000</column>
+        </insert>
+        <insert tableName="order">
+            <column name="window_id">2</column>
+            <column name="customer_id">2</column>
+            <column name="date">2021-11-04</column>
+            <column name="cost">8000</column>
+        </insert>
+
+        <rollback>
+            <delete tableName="order"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

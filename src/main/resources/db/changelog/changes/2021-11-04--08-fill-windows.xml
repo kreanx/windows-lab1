@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <includeAll path="changes" relativeToChangelogFile="true"/>
+
+    <changeSet id="9" author="kozlova" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <tableIsEmpty tableName="window"/>
+        </preConditions>
+
+        <insert tableName="window">
+            <column name="brand_id">1</column>
+            <column name="type_id">1</column>
+            <column name="opening_type_id">1</column>
+            <column name="width">200</column>
+            <column name="height">500</column>
+            <column name="hasChildLock">true</column>
+            <column name="color_id">1</column>
+            <column name="material_id">1</column>
+            <column name="glazing_type_id">1</column>
+            <column name="years_guaranteed">5</column>
+        </insert>
+        <insert tableName="window">
+            <column name="brand_id">2</column>
+            <column name="type_id">2</column>
+            <column name="opening_type_id">2</column>
+            <column name="width">200</column>
+            <column name="height">500</column>
+            <column name="hasChildLock">false</column>
+            <column name="color_id">2</column>
+            <column name="material_id">2</column>
+            <column name="glazing_type_id">2</column>
+            <column name="years_guaranteed">10</column>
+        </insert>
+
+        <rollback>
+            <delete tableName="window"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

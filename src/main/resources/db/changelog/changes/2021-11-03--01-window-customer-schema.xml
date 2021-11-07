@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <includeAll path="changes" relativeToChangelogFile="true"/>
+
+    <changeSet id="1" author="kozlova" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <not>
+                    <tableExists tableName="window_type"/>
+                </not>
+                <not>
+                    <tableExists tableName="opening_type"/>
+                </not>
+                <not>
+                    <tableExists tableName="brand"/>
+                </not>
+                <not>
+                    <tableExists tableName="color"/>
+                </not>
+                <not>
+                    <tableExists tableName="material"/>
+                </not>
+                <not>
+                    <tableExists tableName="glazing_type"/>
+                </not>
+                <not>
+                    <tableExists tableName="window"/>
+                </not>
+                <not>
+                    <tableExists tableName="order"/>
+                </not>
+                <not>
+                    <tableExists tableName="customer"/>
+                </not>
+            </and>
+        </preConditions>
+
+        <createTable  tableName="customer">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="full_name"  type="nvarchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="varchar(11)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="nvarchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="window_type">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="name"  type="nvarchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="opening_type">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="name"  type="nvarchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="brand">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="name"  type="nvarchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="color">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="name"  type="nvarchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="material">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="name"  type="nvarchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="glazing_type">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="name"  type="nvarchar2(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="window">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="brand_id"  type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column  name="type_id"  type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column  name="opening_type_id"  type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="width" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="height" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="has_child_lock" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="color_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="material_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="glazing_type_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="years_guaranteed" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="order">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="window_id"  type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cost" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="order"
+                                 baseColumnNames="customer_id"
+                                 constraintName="fk_order_customer_id"
+                                 referencedTableName="customer"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="order"
+                                 baseColumnNames="window_id"
+                                 constraintName="fk_order_window_id"
+                                 referencedTableName="window"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="window"
+                                 baseColumnNames="brand_id"
+                                 constraintName="fk_window_brand_id"
+                                 referencedTableName="brand"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="window"
+                                 baseColumnNames="type_id"
+                                 constraintName="fk_window_type_id"
+                                 referencedTableName="window_type"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="window"
+                                 baseColumnNames="opening_type_id"
+                                 constraintName="fk_window_opening_type_id"
+                                 referencedTableName="opening_type"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="window"
+                                 baseColumnNames="color_id"
+                                 constraintName="fk_window_color_id"
+                                 referencedTableName="color"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="window"
+                                 baseColumnNames="material_id"
+                                 constraintName="fk_window_material_id"
+                                 referencedTableName="material"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="window"
+                                 baseColumnNames="glazing_type_id"
+                                 constraintName="fk_window_glazing_type_id"
+                                 referencedTableName="glazing_type"
+                                 referencedColumnNames="id"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="window" constraintName="fk_window_glazing_type_id"/>
+            <dropForeignKeyConstraint baseTableName="window" constraintName="fk_window_material_id"/>
+            <dropForeignKeyConstraint baseTableName="window" constraintName="fk_window_color_id"/>
+            <dropForeignKeyConstraint baseTableName="window" constraintName="fk_window_type_id"/>
+            <dropForeignKeyConstraint baseTableName="window" constraintName="fk_window_opening_type_id"/>
+            <dropForeignKeyConstraint baseTableName="window" constraintName="fk_window_brand_id"/>
+            <dropForeignKeyConstraint baseTableName="order" constraintName="fk_order_window_id"/>
+            <dropForeignKeyConstraint baseTableName="order" constraintName="fk_order_customer_id"/>
+            <dropTable tableName="order"/>
+            <dropTable tableName="window"/>
+            <dropTable tableName="glazing_type"/>
+            <dropTable tableName="material"/>
+            <dropTable tableName="color"/>
+            <dropTable tableName="opening_type"/>
+            <dropTable tableName="window_type"/>
+            <dropTable tableName="brand"/>
+            <dropTable tableName="customer"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
