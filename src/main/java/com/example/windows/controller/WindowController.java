@@ -1,8 +1,6 @@
 package com.example.windows.controller;
 
 import com.example.windows.entity.Window;
-import com.example.windows.entity.Order;
-import com.example.windows.entity.Customer;
 import com.example.windows.model.WindowModel;
 import com.example.windows.service.WindowService;
 import lombok.AllArgsConstructor;
@@ -10,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import com.example.windows.dto.PageDto;
+import org.springframework.data.domain.Page;
 
 @AllArgsConstructor
 @Controller
@@ -23,9 +23,9 @@ public class WindowController {
     }
 
     @GetMapping
-    /*public ResponseEntity<Page<Book>> getBooks(PageDto pageDto) {
-        return new ResponseEntity<>(bookService.getBooks(pageDto), HttpStatus.OK);
-    }*/
+    public ResponseEntity<Page<Window>> getWindows(PageDto pageDto) {
+        return new ResponseEntity<>(windowService.getWindows(pageDto), HttpStatus.OK);
+    }
 
     @PostMapping
     public ResponseEntity<Window> addWindow(@RequestBody WindowModel windowModel) {
