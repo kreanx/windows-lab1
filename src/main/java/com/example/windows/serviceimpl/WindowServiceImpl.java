@@ -1,14 +1,10 @@
 package com.example.windows.serviceimpl;
 
-import com.example.windows.entity.WindowType;
-import com.example.windows.entity.Color;
-import com.example.windows.entity.Brand;
-import com.example.windows.entity.GlazingType;
-import com.example.windows.entity.Material;
-import com.example.windows.entity.OpeningType;
+import com.example.windows.dto.PageDto;
+import com.example.windows.entity.*;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import com.example.windows.entity.Window;
 import com.example.windows.exception.ResourceNotFoundException;
 import com.example.windows.model.WindowModel;
 import com.example.windows.repository.WindowRepository;
@@ -38,6 +34,11 @@ public class WindowServiceImpl implements WindowService {
                 .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "The window with id " + id + " does not exist."));
+    }
+
+    @Override
+    public Page<Window> getWindows(PageDto pageDto) {
+        return windowRepository.findAll(pageDto.getPageable());
     }
 
     @Override

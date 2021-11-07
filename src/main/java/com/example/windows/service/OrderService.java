@@ -2,11 +2,13 @@ package com.example.windows.service;
 
 import com.example.windows.entity.Order;
 import com.example.windows.model.OrderModel;
+import com.example.windows.dto.PageDto;
+import org.springframework.data.domain.Page;
 
 public interface OrderService {
     Order getOrderById(Long id);
 
-    //Page<Book> getBooks(PageDto pageDto);
+    Page<Order> getOrders(PageDto pageDto);
 
     Order addOrder(OrderModel orderModel);
 

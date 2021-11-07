@@ -9,6 +9,8 @@ import com.example.windows.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.windows.exception.ResourceNotFoundException;
+import com.example.windows.dto.PageDto;
+import org.springframework.data.domain.Page;
 
 @Service
 @AllArgsConstructor
@@ -24,6 +26,11 @@ public class OrderServiceImpl implements OrderService{
                 .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "The order with id " + id + " does not exist."));
+    }
+
+    @Override
+    public Page<Order> getOrders(PageDto pageDto) {
+        return orderRepository.findAll(pageDto.getPageable());
     }
 
     @Override

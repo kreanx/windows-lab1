@@ -8,6 +8,8 @@ import com.example.windows.exception.ResourceAlreadyExistsException;
 import com.example.windows.exception.ResourceNotFoundException;
 import com.example.windows.model.CustomerModel;
 import com.example.windows.service.CustomerService;
+import com.example.windows.dto.PageDto;
+import org.springframework.data.domain.Page;
 
 @Service
 @AllArgsConstructor
@@ -20,6 +22,11 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository
                 .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("The customer with id " + id + " does not exist."));
+    }
+
+    @Override
+    public Page<Customer> getCustomers(PageDto pageDto) {
+        return customerRepository.findAll(pageDto.getPageable());
     }
 
     @Override
