@@ -13,6 +13,4 @@ public interface WindowService {
     Window addWindow(WindowModel windowModel);
 
     Window updateWindow(Long id, WindowModel bookModel);
-
-    void deleteWindowById(Long id);
 }

@@ -34,5 +34,5 @@ public class WindowModel {
     private Long glazingTypeId;
 
     @JsonProperty(value = "yearsGuaranteed")
-    private Long yearsGuaranteed;
+    private int yearsGuaranteed;
 }

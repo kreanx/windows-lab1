@@ -13,6 +13,4 @@ public interface OrderService {
     Order addOrder(OrderModel orderModel);
 
     Order updateOrder(Long id, OrderModel orderModel);
-
-    void deleteOrderById(Long id);
 }

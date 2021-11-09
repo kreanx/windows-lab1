@@ -13,6 +13,4 @@ public interface CustomerService {
     Customer addCustomer(CustomerModel customerModel);
 
     Customer updateCustomer(Long id, CustomerModel customerModel);
-
-    void deleteCustomerById(Long id);
 }

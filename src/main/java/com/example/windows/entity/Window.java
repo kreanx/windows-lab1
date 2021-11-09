@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="\"window\"")
 public class Window {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +36,7 @@ public class Window {
     private int height;
 
     @NonNull
+    @Column(name = "has_child_lock")
     private boolean hasChildLock;
 
     @NonNull
@@ -54,5 +56,5 @@ public class Window {
 
     @NonNull
     @Column(name = "years_guaranteed")
-    private Long yearsGuaranteed;
+    private int yearsGuaranteed;
 }

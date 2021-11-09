@@ -37,9 +37,9 @@ public class WindowController {
         return new ResponseEntity<>(windowService.updateWindow(id, windowModel), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    /*@DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteWindowById(@PathVariable Long id) {
         windowService.deleteWindowById(id);
-    }
+    }*/
 }

@@ -118,9 +118,4 @@ public class WindowServiceImpl implements WindowService {
         windowRepository.save(window);
         return window;
     }
-
-    @Override
-    public void deleteWindowById(Long id) {
-        windowRepository.deleteById(id);
-    }
 }
